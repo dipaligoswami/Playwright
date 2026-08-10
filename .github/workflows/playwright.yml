@@ -5,7 +5,37 @@ on:
   pull_request:
     branches: [ main, master ]
 jobs:
-  test:
+  smoke:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+    - name: Install dependencies
+      run: npm ci
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+    - name: Run smoke tests
+      run: npm run test:tag:smoke
+      env:
+        ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+        TEACHER_EMAIL: ${{ secrets.TEACHER_EMAIL }}
+        STUDENT_EMAIL: ${{ secrets.STUDENT_EMAIL }}
+        ADMIN_MOBILE: ${{ secrets.ADMIN_MOBILE }}
+        STUDENT_MOBILE: ${{ secrets.STUDENT_MOBILE }}
+        VALID_OTP: ${{ secrets.VALID_OTP }}
+        INVALID_OTP: ${{ secrets.INVALID_OTP }}
+        LMS_BASE_URL: ${{ secrets.LMS_BASE_URL }}
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-smoke-report
+        path: playwright-report/
+        retention-days: 30
+
+  functional:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -17,11 +47,20 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test
+    - name: Run functional tests
+      run: npm run test:tag:functional
+      env:
+        ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+        TEACHER_EMAIL: ${{ secrets.TEACHER_EMAIL }}
+        STUDENT_EMAIL: ${{ secrets.STUDENT_EMAIL }}
+        ADMIN_MOBILE: ${{ secrets.ADMIN_MOBILE }}
+        STUDENT_MOBILE: ${{ secrets.STUDENT_MOBILE }}
+        VALID_OTP: ${{ secrets.VALID_OTP }}
+        INVALID_OTP: ${{ secrets.INVALID_OTP }}
+        LMS_BASE_URL: ${{ secrets.LMS_BASE_URL }}
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
-        name: playwright-report
+        name: playwright-functional-report
         path: playwright-report/
         retention-days: 30

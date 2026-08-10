@@ -3,12 +3,22 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "playwright test",
+    "test:smoke": "playwright test tests/smoke",
+    "test:functional": "playwright test tests/functional",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:tag:smoke": "playwright test --grep @smoke",
+    "test:tag:functional": "playwright test --grep @functional",
+    "report": "playwright show-report"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.56.1",
+    "dotenv": "^16.6.1",
     "@types/node": "^24.10.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"

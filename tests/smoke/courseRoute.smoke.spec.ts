@@ -1,7 +1,7 @@
-import { test, expect } from '@playwright/test';
+import { test } from '../fixtures/test-fixtures';
 
-test('Nrich Course Route Smoke Test', async ({ page }) => {
-    const response = await page.goto('https://nrichlearning.com/courses', { waitUntil: 'domcontentloaded' });
-    expect(response).not.toBeNull();
-    expect(response!.status()).toBeLessThan(400);
-})
+test.describe('Course route smoke', { tag: '@smoke' }, () => {
+  test('Nrich Course Route Smoke Test', async ({ gotoAndAssert }) => {
+    await gotoAndAssert('/courses');
+  });
+});

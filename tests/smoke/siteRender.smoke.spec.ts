@@ -1,9 +1,9 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../fixtures/test-fixtures';
 
-test('Nrich site is opening or not', async ({ page }) => {
-const response = await page.goto('https://nrichlearning.com', { waitUntil: 'networkidle' });
-    expect(response).not.toBeNull();
-    expect(response!.status()).toBeLessThan(400);
-await expect(page).toHaveURL(/nrichlearning\.com/);
-await expect(page.locator('body')).toBeVisible();
+test.describe('Site render smoke', { tag: '@smoke' }, () => {
+  test('Nrich site is opening or not', async ({ page, gotoAndAssert }) => {
+    await gotoAndAssert('/', { waitUntil: 'networkidle' });
+    await expect(page).toHaveURL(/nrichlearning\.com/);
+    await expect(page.locator('body')).toBeVisible();
+  });
 });

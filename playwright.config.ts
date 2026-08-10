@@ -1,4 +1,7 @@
+import dotenv from 'dotenv';
 import { defineConfig, devices } from '@playwright/test';
+
+dotenv.config();
 
 const timestamp = new Date()
   .toISOString()
@@ -38,21 +41,21 @@ export default defineConfig({
     name: 'Main-Domain',
     use: {
       ...devices['Desktop Chrome'],
-      baseURL: 'https://nrichlearning.co.in',
+      baseURL: 'https://nrichlearning.com',
     },
   },
-  {
-    name: 'On-Domain',
-    use: {
-      ...devices['Desktop Chrome'],
-      baseURL: 'https://lms.simplelms.in',
-    },
-  },
-  {
-    name: 'Sub-Domain',
-    use: {
-      baseURL: 'https://studyinstitute.nrichlearning.co.in/',
-    },
-  },
+  // {
+  //   name: 'On-Domain',
+  //   use: {
+  //     ...devices['Desktop Chrome'],
+  //     baseURL: 'https://lms.simplelms.in',
+  //   },
+  // },
+  // {
+  //   name: 'Sub-Domain',
+  //   use: {
+  //     baseURL: 'https://studyinstitute.nrichlearning.co.in/',
+  //   },
+  // },
 ],
 });
