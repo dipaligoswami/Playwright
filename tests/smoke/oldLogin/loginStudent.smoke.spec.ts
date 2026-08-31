@@ -1,4 +1,4 @@
-import { test } from '../fixtures/test-fixtures';
+import { test } from '../../fixtures/test-fixtures';
 
 test.describe('Student login smoke', { tag: '@smoke' }, () => {
   test('Nrich login with mobile', async ({ loginPage, gotoAndAssert, testData }) => {

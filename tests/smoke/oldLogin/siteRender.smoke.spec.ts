@@ -1,4 +1,4 @@
-import { test, expect } from '../fixtures/test-fixtures';
+import { test, expect } from '../../fixtures/test-fixtures';
 
 test.describe('Site render smoke', { tag: '@smoke' }, () => {
   test('Nrich site is opening or not', async ({ page, gotoAndAssert }) => {

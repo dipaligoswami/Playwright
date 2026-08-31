@@ -41,7 +41,7 @@ export default defineConfig({
     name: 'Main-Domain',
     use: {
       ...devices['Desktop Chrome'],
-      baseURL: 'https://nrichlearning.com',
+      baseURL: 'https://app.nrichlearning.com',
     },
   },
   // {
